@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banking Simulator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+h1 {
+  margin-bottom: 20px;
+}
+
+input {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+#message {
+  margin-top: 10px;
+  color: #007bff;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Banking Simulator</h1>
+    <div class="account-section">
+      <label for="account-name">Account Name:</label>
+      <input type="text" id="account-name" placeholder="Enter your name">
+      <button onclick="createAccount()">Create Account</button>
+    </div>
+
+    <div class="operations-section" id="operations-section" style="display: none;">
+      <p><strong>Account Holder:</strong> <span id="account-holder"></span></p>
+      <p><strong>Balance:</strong> Rs <span id="balance">0.00</span></p>
+      <div class="operation">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" placeholder="Enter amount">
+      </div>
+      <button onclick="deposit()">Deposit</button>
+      <button onclick="withdraw()">Withdraw</button>
+      <button onclick="checkBalance()">Check Balance</button>
+      <div id="message"></div>
+    </div>
+  </div>
+
+  <script>
+let balance = 0;
+let accountHolder = "";
+
+function createAccount() {
+  const accountNameInput = document.getElementById("account-name");
+  if (accountNameInput.value.trim() === "") {
+    alert("Please enter a valid account name.");
+    return;
+  }
+  accountHolder = accountNameInput.value.trim();
+  document.getElementById("account-holder").innerText = accountHolder;
+  document.getElementById("operations-section").style.display = "block";
+  accountNameInput.value = "";
+}
+
+function deposit() {
+  const amountInput = document.getElementById("amount");
+  const amount = parseFloat(amountInput.value);
+  if (isNaN(amount) || amount <= 0) {
+    showMessage("Please enter a valid amount to deposit.");
+    return;
+  }
+  balance += amount;
+  updateBalance();
+  showMessage(`Successfully deposited Rs ${amount.toFixed(2)}.`);
+  amountInput.value = "";
+}
+
+function withdraw() {
+  const amountInput = document.getElementById("amount");
+  const amount = parseFloat(amountInput.value);
+  if (isNaN(amount) || amount <= 0) {
+    showMessage("Please enter a valid amount to withdraw.");
+    return;
+  }
+  if (amount > balance) {
+    showMessage("Insufficient balance for withdrawal.");
+    return;
+  }
+  balance -= amount;
+  updateBalance();
+  showMessage(`Successfully withdrew  rs ${amount.toFixed(2)}.`);
+  amountInput.value = "";
+}
+
+function checkBalance() {
+  showMessage(`Your current balance is rs ${balance.toFixed(2)}.`);
+}
+
+function updateBalance() {
+  document.getElementById("balance").innerText = balance.toFixed(2);
+}
+
+function showMessage(message) {
+  const messageDiv = document.getElementById("message");
+  messageDiv.innerText = message;
+}
+
+  </script>
+</body>
+</html>
