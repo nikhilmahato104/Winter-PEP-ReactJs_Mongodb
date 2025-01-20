@@ -1,0 +1,9 @@
+body{
+  margin: 0px;
+  padding: 0px;
+}
+.App-header{
+  background-color: aqua;
+  padding: 5px;
+  text-align: center;
+}
