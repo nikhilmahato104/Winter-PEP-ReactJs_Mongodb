@@ -6,12 +6,9 @@ function App() {
     <div className="App">
       <header className="App-header">
       <p>hi i am a header</p>
+      
       </header>
     </div>
   );
 }
-export default App;                                                  
-
-
-
-
+export default App;
